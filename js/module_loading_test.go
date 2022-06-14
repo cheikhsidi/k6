@@ -314,10 +314,10 @@ func TestLoadCycle(t *testing.T) {
 	// This is mostly the example from https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 	fs := afero.NewMemMapFs()
 	require.NoError(t, afero.WriteFile(fs, "/counter.js", []byte(`
-			let message = require("./main.js").message;
+			let main = require("./main.js");
 			exports.count = 5;
 			export function a() {
-				return message;
+				return main.message;
 			}
 	`), os.ModePerm))
 
